@@ -1,8 +1,13 @@
+echo "clone git repo"
+cd /home/nvidia
+git clone https://github.com/bejoynr/raspi-edge-pub.git ./raspberrypi
+echo "downloading teleport and nomachine"
+wget https://get.gravitational.com/teleport-v9.0.4-linux-arm-bin.tar.gz
+wget https://download.nomachine.com/download/7.9/Raspberry/nomachine_7.9.2_1_armhf.deb
 echo "installing nomachine"
-#wget https://get.gravitational.com/teleport-v9.0.4-linux-arm-bin.tar.gz
-#wget https://download.nomachine.com/download/7.9/Raspberry/nomachine_7.9.2_1_armhf.deb
 sudo dpkg -i nomachine_7.9.2_1_armhf.deb
 sudo apt update
+echo "installing packages"
 sudo apt install curl shc openssh-server -y
 cp -r ../raspberrypi /home/nvidia/
 cd /home/nvidia/raspberrypi
@@ -11,10 +16,6 @@ tar zxf teleport-v9.0.4-linux-arm-bin.tar.gz
 sudo ./teleport/install 
 sudo cp ./teleport/examples/systemd/production/node/teleport.service /etc/systemd/system/
 sudo systemctl enable teleport
-echo "adding user"
-sudo useradd -m -d /home/bejoynr -s /bin/bash bejoynr
-echo  'bejoynr ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers.d/bejoynr
-sleep 3
 echo "creating health script"
 sudo mkdir /etc/health
 sudo cp etc-health.sh /etc/health/health.sh
