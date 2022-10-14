@@ -9,5 +9,5 @@ echo "###############"
 echo "Hosts Alive"
 fping -s -g 192.168.$THIRDOCTET.1 192.168.$THIRDOCTET.254 -n -a -q -A
 echo "ARP list"
-sleep 5
+sleep 10
 arp -a
