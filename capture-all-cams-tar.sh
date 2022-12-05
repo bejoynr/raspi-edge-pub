@@ -1,4 +1,5 @@
 grep -v ^# /etc/health/cameras.info | awk '{print $1}' > /tmp/camips.list
+for i in `cat /tmp/camips.list` ; do ping -c1 $i | grep -i icmp_seq; done
 grep -v ^# /etc/health/cameras.info | awk '{print $1"-"$2}' > /tmp/campos.list
 rm /tmp/jpg$HOSTNAME.tar
 cp -r /tmp/jpg /tmp/jpg.1
